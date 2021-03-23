@@ -4,8 +4,9 @@ dmenu is an efficient dynamic menu for X.
 
 Patches
 -------
-+ Case insensitive
-+ Center
++ case insensitive
++ center
++ border (manually)
 
 Requirements
 ------------
