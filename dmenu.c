@@ -55,8 +55,9 @@ static Clr *scheme[SchemeLast];
 
 #include "config.h"
 
-static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
-static char *(*fstrstr)(const char *, const char *) = strstr;
+static char * cistrstr(const char *s, const char *sub);
+static int (*fstrncmp)(const char *, const char *, size_t) = strncasecmp;
+static char *(*fstrstr)(const char *, const char *) = cistrstr;
 
 static void
 appenditem(struct item *item, struct item **list, struct item **last)
@@ -87,6 +88,15 @@ calcoffsets(void)
 	for (i = 0, prev = curr; prev && prev->left; prev = prev->left)
 		if ((i += (lines > 0) ? bh : MIN(TEXTW(prev->left->text), n)) > n)
 			break;
+}
+
+static int
+max_textw(void)
+{
+	int len = 0;
+	for (struct item *item = items; item && item->text; item++)
+		len = MAX(TEXTW(item->text), len);
+	return len;
 }
 
 static void
@@ -611,6 +621,7 @@ setup(void)
 	bh = drw->fonts->h + 2;
 	lines = MAX(lines, 0);
 	mh = (lines + 1) * bh;
+	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
 #ifdef XINERAMA
 	i = 0;
 	if (parentwin == root && (info = XineramaQueryScreens(dpy, &n))) {
@@ -637,9 +648,9 @@ setup(void)
 				if (INTERSECT(x, y, 1, 1, info[i]))
 					break;
 
-		x = info[i].x_org;
-		y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
-		mw = info[i].width;
+		mw = MIN(MAX(max_textw() + promptw, 100), info[i].width);
+		x = info[i].x_org + ((info[i].width  - mw) / 2);
+		y = info[i].y_org + ((info[i].height - mh) / 2);
 		XFree(info);
 	} else
 #endif
@@ -647,11 +658,10 @@ setup(void)
 		if (!XGetWindowAttributes(dpy, parentwin, &wa))
 			die("could not get embedding window attributes: 0x%lx",
 			    parentwin);
-		x = 0;
-		y = topbar ? 0 : wa.height - mh;
-		mw = wa.width;
+		mw = MIN(MAX(max_textw() + promptw, 100), wa.width);
+		x = (wa.width  - mw) / 2;
+		y = (wa.height - mh) / 2;
 	}
-	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
 	inputw = MIN(inputw, mw/3);
 	match();
 
@@ -709,9 +719,9 @@ main(int argc, char *argv[])
 			topbar = 0;
 		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
 			fast = 1;
-		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
-			fstrncmp = strncasecmp;
-			fstrstr = cistrstr;
+		else if (!strcmp(argv[i], "-s")) { /* case-sensitive item matching */
+			fstrncmp = strncmp;
+			fstrstr = strstr;
 		} else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */
