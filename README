@@ -6,7 +6,8 @@ Patches
 -------
 + case insensitive
 + center
-+ border (manually)
++ border
++ fuzzymatch
 
 Requirements
 ------------
