@@ -8,11 +8,16 @@ static const char *fonts[] = {
 	"monospace:size=10"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
+
+static const char nord_fg[]         = "#D8DEE9";
+static const char nord_bg[]         = "#2E3440";
+static const char nord_blue[]       = "#81A1C1";
+
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#ffffff", "#1c1b1d" },
-	[SchemeSel] = { "#1c1b1d", "#98c379" },
-	[SchemeOut] = { "#000000", "#00ffff" },
+	[SchemeNorm] = { nord_fg, nord_bg   },
+	[SchemeSel] =  { nord_bg, nord_blue },
+	[SchemeOut] =  { nord_fg, nord_bg   },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 6;
