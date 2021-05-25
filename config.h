@@ -13,11 +13,15 @@ static const char nord_fg[]         = "#D8DEE9";
 static const char nord_bg[]         = "#2E3440";
 static const char nord_blue[]       = "#81A1C1";
 
+static const char gruv_fg[]         = "#282828";
+static const char gruv_bg[]         = "#f2e5bc";
+static const char gruv_yellow[]     = "#d79921";
+
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { nord_fg, nord_bg   },
-	[SchemeSel] =  { nord_bg, nord_blue },
-	[SchemeOut] =  { nord_fg, nord_bg   },
+	[SchemeNorm] = { gruv_fg, gruv_bg     },
+	[SchemeSel] =  { gruv_bg, gruv_yellow },
+	[SchemeOut] =  { gruv_fg, gruv_bg     },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 6;
