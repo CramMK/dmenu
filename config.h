@@ -29,6 +29,6 @@ static unsigned int lines      = 6;
  */
 static const char worddelimiters[] = " ";
 
-static const unsigned int border_width = 6; /* Size of the window border */
+static const unsigned int border_width = 4; /* Size of the window border */
 
 static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't use fuzzy matching     */
