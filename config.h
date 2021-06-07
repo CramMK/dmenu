@@ -4,7 +4,7 @@
 static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"Product Sans:size=13",
+	"Product Sans:size=20",
 	"monospace:size=10"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
@@ -29,6 +29,6 @@ static unsigned int lines      = 6;
  */
 static const char worddelimiters[] = " ";
 
-static const unsigned int border_width = 3; /* Size of the window border */
+static const unsigned int border_width = 6; /* Size of the window border */
 
 static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't use fuzzy matching     */
