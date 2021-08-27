@@ -21,7 +21,7 @@ static const char *colors[SchemeLast][2] = {
 	[SchemeOut] =  { gruv_fg, gruv_bg     },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
-static unsigned int lines      = 15;
+static unsigned int lines      = 10;
 
 /*
  * Characters not considered part of a word while deleting words
