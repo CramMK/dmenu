@@ -9,18 +9,15 @@ static const char *fonts[] = {
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 
-static const char gruv_fg[]         = "#282828";
-//static const char gruv_bg[]         = "#f2e5bc";
-static const char gruv_bg[]         = "#f9f5d7";
-static const char gruv_yellow[]     = "#d79921";
-//static const char gruv_green[]      = "#98971a";
-static const char gruv_green[]      = "#689d6a";
+static const char fg[]         = "#575f66";
+static const char bg[]         = "#fafafa";
+static const char green[]      = "#a6cc70";
 
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { gruv_fg, gruv_bg     },
-	[SchemeSel] =  { gruv_bg, gruv_green  },
-	[SchemeOut] =  { gruv_fg, gruv_bg     },
+	[SchemeNorm] = { fg, bg     },
+	[SchemeSel] =  { bg, green  },
+	[SchemeOut] =  { fg, bg     },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 10;
